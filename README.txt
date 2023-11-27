@@ -35,4 +35,4 @@ Refer to the [runner_test.go](./runner_test.go) file for usage examples of the O
 
 [go-cuda](https://github.com/nexis-dev/go-cuda): high-level Go interface to the CUDA API.
 
-[ccxminer](https://github.com/cyberchain/ccxccxminer): CrytoNight-gpu miner using go-opencl and go-cuda.
+[ccxminer](https://github.com/cyberchain/ccxminer): Cryptonight-GPU-light miner using go-opencl and go-cuda.
