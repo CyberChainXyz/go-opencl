@@ -8,10 +8,12 @@ import (
 	"unsafe"
 )
 
+// Buffer represents an OpenCL buffer.
 type Buffer struct {
 	buffer C.cl_mem
 }
 
+// OpenCLRunner represents an OpenCL runner.
 type OpenCLRunner struct {
 	Device       *OpenCLDevice
 	Context      C.cl_context
@@ -22,6 +24,8 @@ type OpenCLRunner struct {
 	Buffers []*Buffer
 }
 
+// InitRunner initializes an OpenCLRunner for the given OpenCLDevice.
+// It creates a context and a command queue.
 func (device *OpenCLDevice) InitRunner() (*OpenCLRunner, error) {
 	var runner = OpenCLRunner{Device: device}
 
@@ -51,6 +55,7 @@ func (device *OpenCLDevice) InitRunner() (*OpenCLRunner, error) {
 	return &runner, nil
 }
 
+// Free releases all resources associated with the OpenCLRunner.
 func (runner *OpenCLRunner) Free() error {
 	var err C.cl_int
 
@@ -80,6 +85,7 @@ func (runner *OpenCLRunner) Free() error {
 	return nil
 }
 
+// CompileKernels compiles OpenCL kernels from the provided source code.
 func (runner *OpenCLRunner) CompileKernels(codeSourceList []string, kernelNameList []string, options string) error {
 	var codes [](*C.char)
 	for _, codeSource := range codeSourceList {
@@ -151,6 +157,7 @@ const (
 	COPY_HOST_PTR                 = C.CL_MEM_COPY_HOST_PTR
 )
 
+// CreateBuffer creates an OpenCL buffer with the specified flags and source data.
 func CreateBuffer[E any](runner *OpenCLRunner, flags C.cl_mem_flags, source []E) (*Buffer, error) {
 	if len(source) == 0 {
 		return nil, fmt.Errorf("clCreateBuffer Err: source is empty")
@@ -168,6 +175,7 @@ func CreateBuffer[E any](runner *OpenCLRunner, flags C.cl_mem_flags, source []E)
 	return buffer, nil
 }
 
+// CreateEmptyBuffer creates an empty OpenCL buffer with the specified flags and size.
 func (runner *OpenCLRunner) CreateEmptyBuffer(flags C.cl_mem_flags, size int) (*Buffer, error) {
 	var err C.cl_int
 	cl_mem := C.clCreateBuffer(runner.Context, flags, C.size_t(size), nil, &err)
@@ -179,6 +187,7 @@ func (runner *OpenCLRunner) CreateEmptyBuffer(flags C.cl_mem_flags, size int) (*
 	return buffer, nil
 }
 
+// ReadBuffer reads data from an OpenCL buffer into the target slice.
 func ReadBuffer[E any](runner *OpenCLRunner, offset int, buffer *Buffer, target []E) error {
 	if len(target) == 0 {
 		return fmt.Errorf("clEnqueueReadBuffer Err: target is nil")
@@ -192,6 +201,7 @@ func ReadBuffer[E any](runner *OpenCLRunner, offset int, buffer *Buffer, target 
 	return nil
 }
 
+// WriteBuffer writes data from the source slice to an OpenCL buffer.
 func WriteBuffer[E any](runner *OpenCLRunner, offset int, buffer *Buffer, source []E, blocking bool) error {
 	if len(source) == 0 {
 		return fmt.Errorf("clEnqueueWriteBuffer Err: source is empty")
@@ -208,6 +218,7 @@ func WriteBuffer[E any](runner *OpenCLRunner, offset int, buffer *Buffer, source
 	return nil
 }
 
+// ReleaseBuffer releases the specified OpenCL buffer.
 func (runner *OpenCLRunner) ReleaseBuffer(buffer *Buffer) error {
 	err := C.clReleaseMemObject(buffer.buffer)
 	if err != C.CL_SUCCESS {
@@ -216,6 +227,7 @@ func (runner *OpenCLRunner) ReleaseBuffer(buffer *Buffer) error {
 	return nil
 }
 
+// map_size_t converts a slice of uint64 to a slice of C.size_t.
 func map_size_t[E uint64](slice []E) []C.size_t {
 	size_t_slice := make([]C.size_t, len(slice), len(slice))
 	for i, v := range slice {
@@ -224,19 +236,23 @@ func map_size_t[E uint64](slice []E) []C.size_t {
 	return size_t_slice
 }
 
+// KernelParam represents a parameter for an OpenCL kernel.
 type KernelParam struct {
 	Size    uintptr
 	Pointer unsafe.Pointer
 }
 
+// BufferParam creates a KernelParam for an OpenCL buffer.
 func BufferParam(v *Buffer) KernelParam {
 	return KernelParam{Size: unsafe.Sizeof(v.buffer), Pointer: unsafe.Pointer(&v.buffer)}
 }
 
+// Param creates a KernelParam for a value.
 func Param[E any](v *E) KernelParam {
 	return KernelParam{Size: unsafe.Sizeof(*v), Pointer: unsafe.Pointer(v)}
 }
 
+// SetKernelArgs sets the arguments for a specific OpenCL kernel.
 func (runner *OpenCLRunner) SetKernelArgs(kernelName string, args []KernelParam) error {
 	var kernel = runner.Kernels[kernelName]
 	var err C.cl_int
@@ -249,6 +265,7 @@ func (runner *OpenCLRunner) SetKernelArgs(kernelName string, args []KernelParam)
 	return nil
 }
 
+// RunKernel runs an OpenCL kernel with the specified work dimensions, work sizes, and arguments.
 func (runner *OpenCLRunner) RunKernel(kernelName string, work_dim int,
 	global_work_offset []uint64, global_work_size []uint64, local_work_size []uint64, args []KernelParam, wait bool) error {
 	var kernel = runner.Kernels[kernelName]
