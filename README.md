@@ -8,10 +8,21 @@ go-opencl provides a high-level interface to the OpenCL API, allowing you to run
 
 ## Requirements
 
-
+**linux**
 ```bash
 sudo apt install ocl-icd-opencl-dev opencl-headers
 ```
+
+**windows**
+
+This project incorporates OpenCL-Headers and OpenCL-ICD-Loader, which are included in the `include-3.0.13` and `lib-windows-3.0.13-x64` directories respectively for Windows.
+
+The sources for these components are as follows:
+
+- OpenCL-Headers: [KhronosGroup/OpenCL-Headers v2023.02.06](https://github.com/KhronosGroup/OpenCL-Headers/releases/tag/v2023.02.06)
+
+- OpenCL-ICD-Loader: [KhronosGroup/OpenCL-SDK v2023.02.06](https://github.com/KhronosGroup/OpenCL-SDK/releases/tag/v2023.02.06)
+
 
 ## cl-info command
 
