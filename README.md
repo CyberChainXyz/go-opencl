@@ -31,21 +31,17 @@ The cl-info command provides information about the OpenCL platforms and devices 
 To install cl-info, run the following command:
 
 ```bash
-go install github.com/nexis-dev/go-opencl/cmd/cl-info
+go install github.com/CyberChainXyz/go-opencl/cmd/cl-info
 ```
 
 ## OpenCL runner
 
 ```go
-import cl "github.com/nexis-dev/go-opencl"
+import cl "github.com/CyberChainXyz/go-opencl"
 ```
 
 Refer to the [runner_test.go](./runner_test.go) file for usage examples of the OpenCL runner.
 
 ## Other resources
-
-[go-cuda](https://github.com/nexis-dev/go-cuda): High-level Go interface to the CUDA API.
-
-[CCXminer](https://github.com/cyberchain/ccxminer): Cryptonight-GPU-light miner using go-opencl and go-cuda.
 
 OPENCL 3.0 Reference: https://registry.khronos.org/OpenCL/sdk/3.0/docs/man/html/
