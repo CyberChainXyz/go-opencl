@@ -13,10 +13,10 @@ func TestRunner(t *testing.T) {
 	info, _ := Info()
 
 	if len(info.Platforms) < 1 {
-		t.Fatal("No OpenCL Devices")
+		t.Skipf("No OpenCL Devices")
 	}
 	if len(info.Platforms[0].Devices) < 1 {
-		t.Fatal("No OpenCL Devices")
+		t.Skipf("No OpenCL Devices")
 	}
 
 	// Step 2: Initialize the OpenCL runner
