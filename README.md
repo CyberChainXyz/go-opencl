@@ -1,3 +1,5 @@
+[![Test](https://github.com/CyberChainXyz/go-opencl/actions/workflows/test.yml/badge.svg)](https://github.com/CyberChainXyz/go-opencl/actions/workflows/test.yml)
+
 # go-opencl
 
 go-opencl provides a high-level interface to the OpenCL API, allowing you to run OpenCL programs from Go.
