@@ -1,4 +1,4 @@
-module github.com/nexis-dev/go-opencl
+module github.com/CyberChainXyz/go-opencl
 
 go 1.21.0
 
