@@ -1,4 +1,5 @@
 [![Test](https://github.com/CyberChainXyz/go-opencl/actions/workflows/test.yml/badge.svg)](https://github.com/CyberChainXyz/go-opencl/actions/workflows/test.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/CyberChainXyz/go-opencl.svg)](https://pkg.go.dev/github.com/CyberChainXyz/go-opencl)
 
 # go-opencl
 
