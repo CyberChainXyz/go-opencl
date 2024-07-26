@@ -3,7 +3,7 @@
 
 # go-opencl
 
-go-opencl provides a high-level interface to the OpenCL API, allowing you to run OpenCL programs from Go.
+go-opencl provides a high-level interface for OpenCL devices to run OpenCL programs in Go programs conveniently without delving into the annoying details of OpenCL.
 
 ## Development Status
 
@@ -34,7 +34,7 @@ The cl-info command provides information about the OpenCL platforms and devices 
 To install cl-info, run the following command:
 
 ```bash
-go install github.com/CyberChainXyz/go-opencl/cmd/cl-info
+go install github.com/CyberChainXyz/go-opencl/cmd/cl-info@latest
 ```
 
 ## OpenCL runner
