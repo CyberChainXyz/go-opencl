@@ -43,7 +43,7 @@ go install github.com/CyberChainXyz/go-opencl/cmd/cl-info@latest
 import cl "github.com/CyberChainXyz/go-opencl"
 ```
 
-Refer to the [runner_test.go](./runner_test.go) file for usage examples of the OpenCL runner.
+Refer to the [runner_test.go](./runner_test.go) file or [examples](./examples/) for usage examples of the OpenCL runner.
 
 ## Other resources
 
