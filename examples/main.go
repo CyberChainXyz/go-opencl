@@ -6,7 +6,7 @@ import (
 	"slices"
 	"unsafe"
 
-	cl "github.com/nathanccxv/go-opencl"
+	cl "github.com/CyberChainXyz/go-opencl"
 )
 
 // TestRunner is a test function that tests the functionality of the OpenCL runner.

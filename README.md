@@ -1,5 +1,5 @@
-[![Test](https://github.com/nathanccxv/go-opencl/actions/workflows/test.yml/badge.svg)](https://github.com/nathanccxv/go-opencl/actions/workflows/test.yml)
-[![Go Reference](https://pkg.go.dev/badge/github.com/nathanccxv/go-opencl.svg)](https://pkg.go.dev/github.com/nathanccxv/go-opencl)
+[![Test](https://github.com/CyberChainXyz/go-opencl/actions/workflows/test.yml/badge.svg)](https://github.com/CyberChainXyz/go-opencl/actions/workflows/test.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/CyberChainXyz/go-opencl.svg)](https://pkg.go.dev/github.com/CyberChainXyz/go-opencl)
 
 # go-opencl
 
@@ -34,13 +34,13 @@ The cl-info command provides information about the OpenCL platforms and devices 
 To install cl-info, run the following command:
 
 ```bash
-go install github.com/nathanccxv/go-opencl/cmd/cl-info@latest
+go install github.com/CyberChainXyz/go-opencl/cmd/cl-info@latest
 ```
 
 ## OpenCL runner
 
 ```go
-import cl "github.com/nathanccxv/go-opencl"
+import cl "github.com/CyberChainXyz/go-opencl"
 ```
 
 Refer to the [runner_test.go](./runner_test.go) file or [examples](./examples/) for usage examples of the OpenCL runner.

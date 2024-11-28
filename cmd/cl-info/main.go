@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/kr/pretty"
-	cl "github.com/nathanccxv/go-opencl"
+	cl "github.com/CyberChainXyz/go-opencl"
 )
 
 func main() {
