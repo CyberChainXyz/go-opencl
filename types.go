@@ -3,6 +3,13 @@ package opencl
 // #include "cl.h"
 import "C"
 
+type PCIBusInfo struct {
+	Domain   C.cl_uint
+	Bus      C.cl_uint
+	Device   C.cl_uint
+	Function C.cl_uint
+}
+
 type OpenCLDevice struct {
 	Device_id   C.cl_device_id
 	Platform_id C.cl_platform_id
@@ -22,6 +29,8 @@ type OpenCLDevice struct {
 
 	Max_work_item_dimensions C.cl_uint
 	Max_work_item_sizes      []C.size_t
+
+	PCIInfo PCIBusInfo
 }
 
 type OpenCLPlatform struct {

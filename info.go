@@ -1,6 +1,9 @@
 package opencl
 
 // #include "cl.h"
+// #ifndef CL_DEVICE_PCI_BUS_INFO_KHR
+// #define CL_DEVICE_PCI_BUS_INFO_KHR 0x410F
+// #endif
 import "C"
 
 import (
@@ -9,8 +12,31 @@ import (
 	"unsafe"
 )
 
+func getPCIBusInfo(device_id C.cl_device_id) (PCIBusInfo, error) {
+	var info PCIBusInfo
+
+	// Try standard KHR extension first
+	var khrBusInfo [4]C.cl_uint
+	err := C.clGetDeviceInfo(device_id, C.CL_DEVICE_PCI_BUS_INFO_KHR,
+		C.sizeof_cl_uint*4, unsafe.Pointer(&khrBusInfo[0]), nil)
+	if err == C.CL_SUCCESS {
+		info.Domain = khrBusInfo[0]
+		info.Bus = khrBusInfo[1]
+		info.Device = khrBusInfo[2]
+		info.Function = khrBusInfo[3]
+		return info, nil
+	}
+
+	return info, fmt.Errorf("PCI bus info not available")
+}
+
 func getOneDevie(platform_id C.cl_platform_id, device_id C.cl_device_id) (*OpenCLDevice, error) {
 	var device = OpenCLDevice{Platform_id: platform_id, Device_id: device_id}
+
+	// Try to get PCI bus info
+	if pciInfo, err := getPCIBusInfo(device_id); err == nil {
+		device.PCIInfo = pciInfo
+	}
 
 	// max_clock_frequency
 	var err = C.clGetDeviceInfo(device_id, C.CL_DEVICE_MAX_CLOCK_FREQUENCY, C.sizeof_cl_uint,
